@@ -28,6 +28,13 @@
       height: 24px;
       vertical-align: middle;
     }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 30px;
+    }
   </style>
 </head>
 <body>
@@ -51,9 +58,10 @@
           <button class="agregar-carrito" data-producto="Spotify 3 Meses">Agregar al carrito</button>
         </li>
       </ul>
-      <a id="whatsappContacto" class="whatsapp-btn" href="https://wa.me/595992809980" target="_blank" style="display:none;">
+      <!-- Este botón solo se muestra tras dar clic en "Agregar al carrito" (opcional) -->
+      <a id="whatsappContacto" class="whatsapp-btn" href="#" target="_blank" style="display:none;">
         <img class="whatsapp-logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
-        Ir a WhatsApp
+        ¡Contáctame por WhatsApp!
       </a>
     </section>
   </main>
@@ -70,14 +78,14 @@
         var mensaje = encodeURIComponent("¡Hola! Me interesa el " + producto);
         var url = "https://wa.me/" + numeroWhatsApp + "?text=" + mensaje;
 
-        // Mostrar el botón de WhatsApp con el enlace adecuado
+        // Abrir WhatsApp en una nueva pestaña con el mensaje personalizado
+        window.open(url, "_blank");
+
+        // (Opcional) Mostrar el botón de WhatsApp con el enlace adecuado
         var waBtn = document.getElementById('whatsappContacto');
         waBtn.href = url;
         waBtn.style.display = "inline-flex";
         waBtn.focus();
-
-        // Opcional: redirigir inmediatamente al WhatsApp
-        window.open(url, "_blank");
       });
     });
   </script>
