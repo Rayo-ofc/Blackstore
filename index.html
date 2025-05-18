@@ -10,9 +10,9 @@
     <h1>Black Store</h1>
     <nav>
       <ul>
-        <li><a href="                       
+        <li><a href="#">Inicio</a></li>
         <li><a href="#">Productos</a></li>
-        <li><a href="                   
+        <li><a href="#">Contacto</a></li>
       </ul>
     </nav>
   </header>
@@ -40,6 +40,13 @@
     <p>&copy; Todos los derechos reservados Black Store 2025</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Script para redireccionar al carrito al hacer clic en Agregar al carrito -->
+  <script>
+    document.querySelectorAll('.agregar-carrito').forEach(function(boton) {
+      boton.addEventListener('click', function() {
+        window.location.href = "carrito.html"; // Cambia por la página que desees
+      });
+    });
+  </script>
 </body>
 </html>
