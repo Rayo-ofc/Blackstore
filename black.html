@@ -2,50 +2,84 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Compra por WhatsApp</title>
+  <title>Black Store Tienda Online</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f3f3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background: #fff;
-      padding: 30px 40px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
-    }
     .whatsapp-btn {
-      background-color: #25d366;
+      background: #25d366;
       color: #fff;
       border: none;
-      padding: 15px 30px;
+      padding: 12px 24px;
       font-size: 18px;
       border-radius: 5px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
       text-decoration: none;
-      display: inline-block;
-      margin-top: 20px;
       transition: background 0.2s;
     }
     .whatsapp-btn:hover {
-      background-color: #128c7e;
+      background: #128c7e;
+    }
+    .whatsapp-logo {
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Para comprar, contáctame al WhatsApp</h2>
-    <a class="whatsapp-btn"
-       href="https://wa.me/595992809980"
-       target="_blank">
-      Contactar por WhatsApp
-    </a>
-  </div>
+  <header>
+    <h1>Black Store</h1>
+  </header>
+  <main>
+    <section id="productos">
+      <h2>Productos</h2>
+      <ul>
+        <li>
+          <h3>Disney 3 Meses</h3>
+          <p>Aprovecha esta oferta exclusiva</p>
+          <p>Precio: 8 Dólar</p>
+          <button class="agregar-carrito" data-producto="Disney 3 Meses">Agregar al carrito</button>
+        </li>
+        <li>
+          <h3>Spotify 3 Meses</h3>
+          <p>Aprovecha esta oferta</p>
+          <p>Precio: 5 Dólar</p>
+          <button class="agregar-carrito" data-producto="Spotify 3 Meses">Agregar al carrito</button>
+        </li>
+      </ul>
+      <a id="whatsappContacto" class="whatsapp-btn" href="https://wa.me/595992809980" target="_blank" style="display:none;">
+        <img class="whatsapp-logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+        Ir a WhatsApp
+      </a>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; Todos los derechos reservados Black Store 2025</p>
+  </footer>
+  <script>
+    // Cambia este número por el tuyo, con código país, sin + ni espacios
+    const numeroWhatsApp = "595992809980";
+
+    document.querySelectorAll('.agregar-carrito').forEach(function(boton) {
+      boton.addEventListener('click', function() {
+        var producto = boton.getAttribute('data-producto');
+        var mensaje = encodeURIComponent("¡Hola! Me interesa el " + producto);
+        var url = "https://wa.me/" + numeroWhatsApp + "?text=" + mensaje;
+
+        // Mostrar el botón de WhatsApp con el enlace adecuado
+        var waBtn = document.getElementById('whatsappContacto');
+        waBtn.href = url;
+        waBtn.style.display = "inline-flex";
+        waBtn.focus();
+
+        // Opcional: redirigir inmediatamente al WhatsApp
+        window.open(url, "_blank");
+      });
+    });
+  </script>
 </body>
 </html>
