@@ -1,52 +1,189 @@
 <!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+  <meta charset="UTF-8">
   <title>Black Store Tienda Online</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #0074D9;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #fff;
+      margin-top: 30px;
+    }
+    .carrusel-container {
+      width: 350px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 18px;
+      margin: 30px 0 20px 0;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.11);
+      padding: 32px 0 24px 0;
+      position: relative;
+      text-align: center;
+    }
+    .producto-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      margin-bottom: 12px;
+    }
+    .producto-nombre {
+      font-size: 1.3em;
+      color: #222;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .producto-desc {
+      color: #444;
+      margin-bottom: 8px;
+      font-size: 1em;
+    }
+    .producto-precio {
+      font-size: 1.1em;
+      color: #222;
+      margin-bottom: 16px;
+      font-weight: bold;
+    }
+    .comprar-btn {
+      background: #25d366;
+      color: #fff;
+      padding: 12px 30px;
+      font-size: 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 10px;
+    }
+    .comprar-btn:hover {
+      background: #128c7e;
+    }
+    .whatsapp-logo {
+      width: 25px;
+      height: 25px;
+    }
+    .carrusel-btn {
+      position: absolute;
+      top: 48%;
+      background: rgba(0,0,0,0.15);
+      border: none;
+      color: #fff;
+      font-size: 2.0em;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s;
+    }
+    .carrusel-btn:hover {
+      background: #005fa3;
+    }
+    .carrusel-btn.prev {
+      left: 12px;
+    }
+    .carrusel-btn.next {
+      right: 12px;
+    }
+    @media (max-width: 480px) {
+      .carrusel-container {
+        width: 96vw;
+        min-width: 0;
+        padding: 16px 0;
+      }
+      .producto-img {
+        width: 120px;
+        height: 120px;
+      }
+      .carrusel-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 1.3em;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Black Store</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Productos</a></li>
-        <li><a href="#">Contacto</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <!-- Productos -->
-    <section id="productos">
-      <h2>Productos</h2>
-      <ul>
-        <li>
-          <h3>Disney 3 Meses</h3>
-          <p>Aprovecha esta oferta exclusiva</p>
-          <p>Precio: 8 Dolar</p>
-          <button class="agregar-carrito" data-nombre="Disney3 Meses" data-precio="8">Agregar al carrito</button>
-        </li>
-        <li>
-          <h3>Spotify 3 Meses</h3>
-          <p>Aprovecha esta oferta</p>
-          <p>Precio: 5 Dolar</p>
-          <button class="agregar-carrito" data-nombre="Spotify 3 Meses" data-precio="5">Agregar al carrito</button>
-        </li>
-      </ul>
-    </section>
-  </main>
+  <h1>Black Store</h1>
+  <div class="carrusel-container">
+    <button class="carrusel-btn prev" onclick="cambiarProducto(-1)">&#8592;</button>
+    <div id="producto"></div>
+    <button class="carrusel-btn next" onclick="cambiarProducto(1)">&#8594;</button>
+  </div>
   <footer>
-    <p>&copy; Todos los derechos reservados Black Store 2025</p>
+    <p style="color:#fff;">&copy; Todos los derechos reservados Black Store 2025</p>
   </footer>
 
-  <!-- Script para redireccionar al carrito al hacer clic en Agregar al carrito -->
   <script>
-    document.querySelectorAll('.agregar-carrito').forEach(function(boton) {
-      boton.addEventListener('click', function() {
-        window.location.href = "black.html"; // Cambia por la página que desees
-      });
-    });
+    // Cambia este número por el tuyo, con código país, sin + ni espacios
+    const numeroWhatsApp = "521234567890";
+    // Puedes agregar más productos aquí
+    const productos = [
+      {
+        nombre: "Disney 3 Meses",
+        descripcion: "Aprovecha esta oferta exclusiva.",
+        precio: "8 Dólar",
+        imagen: "https://static.wikia.nocookie.net/disney/images/3/3e/Disney%2B_logo.png", // Cambia por la URL real
+      },
+      {
+        nombre: "Spotify 3 Meses",
+        descripcion: "Disfruta tu música sin límites.",
+        precio: "5 Dólar",
+        imagen: "https://1000marcas.net/wp-content/uploads/2019/12/Logo-Spotify.png",
+      },
+      {
+        nombre: "HBO Max 1 Mes",
+        descripcion: "Tus series y películas favoritas.",
+        precio: "6 Dólar",
+        imagen: "https://www.hbomax.com/img/hbomax-logo.svg",
+      },
+      {
+        nombre: "Crunchyroll 3 Meses",
+        descripcion: "Anime ilimitado y estrenos.",
+        precio: "7 Dólar",
+        imagen: "https://static.crunchyroll.com/favicons/v2/apple-touch-icon-180x180.png",
+      }
+      // Agrega más productos si quieres
+    ];
+
+    let productoActual = 0;
+
+    function mostrarProducto(idx) {
+      const p = productos[idx];
+      document.getElementById('producto').innerHTML = `
+        <img class="producto-img" src="${p.imagen}" alt="${p.nombre}">
+        <div class="producto-nombre">${p.nombre}</div>
+        <div class="producto-desc">${p.descripcion}</div>
+        <div class="producto-precio">Precio: ${p.precio}</div>
+        <a class="comprar-btn" href="https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent('¡Hola! Me interesa el ' + p.nombre)}" target="_blank">
+          <img class="whatsapp-logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          Comprar ahora
+        </a>
+      `;
+    }
+
+    function cambiarProducto(delta) {
+      productoActual += delta;
+      if (productoActual < 0) productoActual = productos.length - 1;
+      if (productoActual >= productos.length) productoActual = 0;
+      mostrarProducto(productoActual);
+    }
+
+    // Mostrar el primer producto al cargar
+    mostrarProducto(productoActual);
   </script>
 </body>
 </html>
