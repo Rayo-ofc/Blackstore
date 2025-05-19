@@ -10,6 +10,7 @@
       margin: 0;
       font-family: Arial, sans-serif;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
@@ -23,12 +24,55 @@
       font-weight: bold;
       text-align: center;
       border: 2px solid #b71c1c;
+      margin-bottom: 40px;
+    }
+    .redes {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .redes-texto {
+      color: #fff;
+      font-size: 1.15em;
+      margin-bottom: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .iconos-redes {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    .iconos-redes a {
+      text-decoration: none;
+    }
+    .iconos-redes img {
+      width: 45px;
+      height: 45px;
+      transition: transform 0.2s;
+      border-radius: 12px;
+      background: #fff;
+      padding: 6px;
+    }
+    .iconos-redes img:hover {
+      transform: scale(1.15);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
   </style>
 </head>
 <body>
   <div class="mensaje">
-  Gracias por la Compra atentamente Blackstore 😉
+   Gracias por la Compra 😉
+  </div>
+  <div class="redes">
+    <div class="redes-texto">Síguenos en nuestras redes</div>
+    <div class="iconos-redes">
+      <a href="https://www.tiktok.com/@black_store16" target="_blank" title="TikTok">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
+      </a>
+      <a href="https://www.instagram.com/black_.store12" target="_blank" title="Instagram">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+    </div>
   </div>
 </body>
 </html>
