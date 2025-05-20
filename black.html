@@ -2,77 +2,242 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Gracias por la Compra</title>
+  <title>Black Store Tienda Online</title>
   <style>
     body {
-      background: #d32f2f; /* Rojo tipo nota */
       min-height: 100vh;
       margin: 0;
       font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      background: linear-gradient(135deg, #0fffc1, #7e0fff, #ff00c8, #00f0ff, #fffc00, #ff637e, #39ff14);
+      background-size: 400% 400%;
+      animation: neonBg 13s ease-in-out infinite;
     }
-    .mensaje {
-      background: #fff3e0;
-      padding: 40px 50px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
-      color: #b71c1c;
-      font-size: 2em;
-      font-weight: bold;
+    @keyframes neonBg {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    h1 {
+      color: #fff;
+      margin-top: 30px;
+      text-shadow: 0 0 8px #39ff14;
+    }
+    .carrusel-container {
+      width: 350px;
+      background: rgba(25,25,25,0.7);
+      border-radius: 18px;
+      margin: 30px 0 20px 0;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+      padding: 32px 0 24px 0;
+      position: relative;
       text-align: center;
-      border: 2px solid #b71c1c;
-      margin-bottom: 40px;
+    }
+    .producto-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #39ff1455;
+      margin-bottom: 12px;
+      border: 2px solid #39ff14;
+    }
+    .producto-nombre {
+      font-size: 1.3em;
+      color: #fff;
+      margin-bottom: 5px;
+      font-weight: bold;
+      text-shadow: 0 0 8px #0fffc1;
+    }
+    .producto-desc {
+      color: #fff;
+      margin-bottom: 8px;
+      font-size: 1em;
+      text-shadow: 0 0 6px #7e0fff;
+    }
+    .producto-precio {
+      font-size: 1.1em;
+      color: #fff;
+      margin-bottom: 16px;
+      font-weight: bold;
+      text-shadow: 0 0 8px #fffc00;
+    }
+    .comprar-btn {
+      background: #39ff14;
+      color: #222;
+      padding: 12px 30px;
+      font-size: 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s, color 0.2s;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 8px #0074D966;
+    }
+    .comprar-btn:hover {
+      background: #0fffc1;
+      color: #222;
+    }
+    .carrusel-btn {
+      position: absolute;
+      top: 48%;
+      background: rgba(0,0,0,0.20);
+      border: none;
+      color: #39ff14;
+      font-size: 2.0em;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s, color 0.2s;
+    }
+    .carrusel-btn:hover {
+      background: #7e0fff;
+      color: #fff;
+    }
+    .carrusel-btn.prev {
+      left: 12px;
+    }
+    .carrusel-btn.next {
+      right: 12px;
     }
     .redes {
+      margin-top: 40px;
+      margin-bottom: 30px;
       text-align: center;
-      margin-top: 10px;
     }
-    .redes-texto {
+    .redes-titulo {
       color: #fff;
-      font-size: 1.15em;
-      margin-bottom: 12px;
-      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px #39ff14;
       letter-spacing: 1px;
+      font-weight: bold;
     }
     .iconos-redes {
       display: flex;
       justify-content: center;
-      gap: 30px;
+      gap: 40px;
+      margin-top: 10px;
     }
     .iconos-redes a {
       text-decoration: none;
     }
     .iconos-redes img {
-      width: 45px;
-      height: 45px;
-      transition: transform 0.2s;
+      width: 48px;
+      height: 48px;
       border-radius: 12px;
       background: #fff;
-      padding: 6px;
+      transition: box-shadow 0.18s, transform 0.18s;
+      box-shadow: 0 0 12px #39ff14, 0 0 18px #0fffc1;
+      padding: 7px;
     }
     .iconos-redes img:hover {
-      transform: scale(1.15);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 0 25px #ff00cc, 0 0 40px #39ff14;
+      transform: scale(1.13);
+    }
+    @media (max-width: 480px) {
+      .carrusel-container {
+        width: 96vw;
+        min-width: 0;
+        padding: 16px 0;
+      }
+      .producto-img {
+        width: 120px;
+        height: 120px;
+      }
+      .carrusel-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 1.3em;
+      }
+      .iconos-redes img {
+        width: 34px;
+        height: 34px;
+        padding: 3px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="mensaje">
-   Gracias por la Compra 😉
+  <h1>Black Store</h1>
+  <div class="carrusel-container">
+    <button class="carrusel-btn prev" onclick="cambiarProducto(-1)">&#8592;</button>
+    <div id="producto"></div>
+    <button class="carrusel-btn next" onclick="cambiarProducto(1)">&#8594;</button>
   </div>
   <div class="redes">
-    <div class="redes-texto">Síguenos en nuestras redes</div>
+    <div class="redes-titulo">Síguenos en nuestras redes</div>
     <div class="iconos-redes">
-      <a href="https://www.tiktok.com/@black_store16" target="_blank" title="TikTok">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
-      </a>
       <a href="https://www.instagram.com/black_.store12" target="_blank" title="Instagram">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
       </a>
+      <a href="https://www.tiktok.com/@black_store16" target="_blank" title="TikTok">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
+      </a>
     </div>
   </div>
+  <script>
+    // Cambia este número por el tuyo con código país, sin + ni espacios
+    const numeroWhatsApp = "595992809980";
+    // Agrega los productos de tu tienda aquí
+    const productos = [
+      {
+        nombre: "Disney 3 Meses",
+        descripcion: "Aprovecha esta oferta exclusiva.",
+        precio: "8 Dólar",
+        imagen: "https://qu.ax/KLHEc.jpg",
+      },
+      {
+        nombre: "Spotify 3 Meses",
+        descripcion: "Disfruta tu música sin límites.",
+        precio: "5 Dólar",
+        imagen: "https://qu.ax/JneEo.jpg",
+      },
+      {
+        nombre: "HBO Max 1 Mes",
+        descripcion: "Tus series y películas favoritas.",
+        precio: "6 Dólar",
+        imagen: "https://qu.ax/HbPYS.jpg",
+      },
+      {
+        nombre: "Crunchyroll 3 Meses",
+        descripcion: "Anime ilimitado y estrenos.",
+        precio: "7 Dólar",
+        imagen: "https://qu.ax/wZedL.jpg",
+      }
+    ];
+
+    let productoActual = 0;
+
+    function mostrarProducto(idx) {
+      const p = productos[idx];
+      document.getElementById('producto').innerHTML = `
+        <img class="producto-img" src="${p.imagen}" alt="${p.nombre}">
+        <div class="producto-nombre">${p.nombre}</div>
+        <div class="producto-desc">${p.descripcion}</div>
+        <div class="producto-precio">Precio: ${p.precio}</div>
+        <a class="comprar-btn" href="https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent('¡Hola! Me interesa el ' + p.nombre)}" target="_blank">
+          Comprar ahora
+        </a>
+      `;
+    }
+
+    function cambiarProducto(delta) {
+      productoActual += delta;
+      if (productoActual < 0) productoActual = productos.length - 1;
+      if (productoActual >= productos.length) productoActual = 0;
+      mostrarProducto(productoActual);
+    }
+
+    // Mostrar el primer producto al cargar
+    mostrarProducto(productoActual);
+  </script>
 </body>
 </html>
