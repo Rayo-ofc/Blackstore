@@ -4,7 +4,7 @@ const loginForm = document.getElementById('login-form');
 const mensajeDiv = document.getElementById('mensaje');
 
 // Cambia aquí las URLs de redirección tras registro y login exitoso
-const URL_REDIRECCION_REGISTRO = "bienvenido.html";
+const URL_REDIRECCION_REGISTRO = "black.html";
 const URL_REDIRECCION_LOGIN = "black.html";
 
 function mostrarMensaje(texto, exito = true) {
