@@ -2,46 +2,22 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blackstore</title>
   <style>
     body {
       background: #1a1a1a;
-      min-height: 100vh;
-      margin: 0;
+      min-height:  ;
       font-family: 'Segoe UI', Arial, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .typewriter {
       color: #fff;
       font-size: 2.5em;
-      font-weight: bold;
-      border-right: .15em solid #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      width: 0;
-      animation: typing 3s steps(30, end) forwards, blink-caret .75s step-end infinite;
-      margin-top: 60px;
-      margin-bottom: 30px;
-      text-align: center;
-      max-width: 90vw;
-    }
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 18ch }
-    }
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: #fff }
-    }
-    .tienda-img {
-      margin: 25px 0 35px 0;
-      width: 260px;
-      max-width: 80vw;
-      border-radius: 18px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.20);
+      font-weight box-shadow: 0 4px 20px rgba(0,0,0,0.20);
       border: 2px solid #222;
       background: #fff;
       object-fit: cover;
@@ -65,6 +41,60 @@
       background: #b71c1c;
       transform: scale(1.05);
     }
+    .container {
+      width: 350px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 18px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.13);
+      padding: 25px 20px 18px 20px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    form h2 {
+      color: #fff;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+      margin-top: 0;
+    }
+    form input {
+      width: 90%;
+      padding: 10px;
+      margin-bottom: 13px;
+      border-radius: 7px;
+      border: none;
+      background: #222;
+      color: #fff;
+      font-size: 1em;
+      outline: none;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+    }
+    form button {
+      background: #d32f2f;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px 0;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1.1em;
+      transition: background 0.2s;
+      margin-top: 5px;
+      margin-bottom: 2px;
+    }
+    form button:hover {
+      background: #b71c1c;
+    }
     @media (max-width: 500px) {
       .typewriter {
         font-size: 1.3em;
@@ -76,16 +106,34 @@
         font-size: 1em;
         padding: 12px 20px;
       }
+      .container {
+        width: 95vw;
+        padding: 10px 2vw 14px 2vw;
+        min-width: 0;
+      }
     }
   </style>
 </head>
 <body>
   <div id="typewriter" class="typewriter"></div>
-  <!-- Cambia la URL de la imagen de la tienda por la que desees -->
   <img src="https://files.catbox.moe/x8cgjj.jpg" alt="Blackstore Tienda" class="tienda-img">
-  <!-- Cambia la URL de redirección del botón -->
   <a href="black.html" class="comprar-btn">Para comprar click aquí</a>
 
+  <div class="container">
+    <form id="registro-form">
+      <h2>Registro</h2>
+      <input type="text" id="nombre" placeholder="Nombre" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="contraseña" placeholder="Contraseña" required>
+      <button type="submit">Registrarse</button>
+    </form>
+    <form id="login-form">
+      <h2>Login</h2>
+      <input type="email" id="email-login" placeholder="Email" required>
+      <input type="password" id="contraseña-login" placeholder="Contraseña" required>
+      <button type="submit">Iniciar sesión</button>
+    </form>
+  </div>
   <script>
     // Animación máquina de escribir para el mensaje de bienvenida
     const texto = "Welcome a Black Store";
@@ -100,5 +148,7 @@
     }
     escribir();
   </script>
+  <!-- Si tienes script.js, descomenta la línea de abajo -->
+  <!-- <script src="script.js"></script> -->
 </body>
 </html>
