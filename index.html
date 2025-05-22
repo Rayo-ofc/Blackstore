@@ -7,39 +7,23 @@
   <style>
     body {
       background: #1a1a1a;
-      min-height:  ;
+      min-height: 100vh;
+      margin: 0;
       font-family: 'Segoe UI', Arial, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
     }
-    .typewriter {
-      color: #fff;
-      font-size: 2.5em;
-      font-weight box-shadow: 0 4px 20px rgba(0,0,0,0.20);
+    .tienda-img {
+      margin: 40px 0 35px 0;
+      width: 260px;
+      max-width: 80vw;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.20);
       border: 2px solid #222;
       background: #fff;
       object-fit: cover;
-    }
-    .comprar-btn {
-      background: #d32f2f;
-      color: #fff;
-      font-size: 1.3em;
-      font-weight: bold;
-      padding: 18px 45px;
-      border-radius: 9px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
-      margin-bottom: 40px;
-      box-shadow: 0 2px 10px rgba(211,47,47,0.14);
-      display: inline-block;
-    }
-    .comprar-btn:hover {
-      background: #b71c1c;
-      transform: scale(1.05);
     }
     .container {
       width: 350px;
@@ -96,15 +80,8 @@
       background: #b71c1c;
     }
     @media (max-width: 500px) {
-      .typewriter {
-        font-size: 1.3em;
-      }
       .tienda-img {
         width: 90vw;
-      }
-      .comprar-btn {
-        font-size: 1em;
-        padding: 12px 20px;
       }
       .container {
         width: 95vw;
@@ -115,10 +92,7 @@
   </style>
 </head>
 <body>
-  <div id="typewriter" class="typewriter"></div>
   <img src="https://files.catbox.moe/x8cgjj.jpg" alt="Blackstore Tienda" class="tienda-img">
-  <a href="black.html" class="comprar-btn">Para comprar click aquí</a>
-
   <div class="container">
     <form id="registro-form">
       <h2>Registro</h2>
@@ -134,21 +108,6 @@
       <button type="submit">Iniciar sesión</button>
     </form>
   </div>
-  <script>
-    // Animación máquina de escribir para el mensaje de bienvenida
-    const texto = "Welcome a Black Store";
-    const typewriter = document.getElementById('typewriter');
-    let i = 0;
-    function escribir() {
-      if (i < texto.length) {
-        typewriter.textContent += texto.charAt(i);
-        i++;
-        setTimeout(escribir, 90);
-      }
-    }
-    escribir();
-  </script>
-  <!-- Si tienes script.js, descomenta la línea de abajo -->
   <!-- <script src="script.js"></script> -->
 </body>
 </html>
