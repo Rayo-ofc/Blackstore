@@ -1,26 +1,23 @@
 // script.js
 const registroForm = document.getElementById('registro-form');
 const loginForm = document.getElementById('login-form');
-const mensajeDiv = document.createElement('div');
-mensajeDiv.id = 'mensaje';
-mensajeDiv.style.margin = '10px 0 15px 0';
-mensajeDiv.style.color = '#fff';
-mensajeDiv.style.textAlign = 'center';
-// Agregamos el mensajeDiv al principio del body (puedes moverlo donde quieras)
-document.body.insertBefore(mensajeDiv, document.body.firstChild);
+const mensajeDiv = document.getElementById('mensaje');
+
+// Cambia aquí las URLs de redirección tras registro y login exitoso
+const URL_REDIRECCION_REGISTRO = "bienvenido.html";
+const URL_REDIRECCION_LOGIN = "black.html";
 
 function mostrarMensaje(texto, exito = true) {
   mensajeDiv.textContent = texto;
   mensajeDiv.style.background = exito ? '#388e3c' : '#d32f2f';
   mensajeDiv.style.color = '#fff';
-  mensajeDiv.style.borderRadius = '7px';
-  mensajeDiv.style.padding = '8px 19px';
-  mensajeDiv.style.boxShadow = '0 2px 8px rgba(0,0,0,0.10)';
+  mensajeDiv.style.display = "block";
   setTimeout(() => mensajeDiv.textContent = '', 5000);
 }
 
-// REGISTRO
-registro document.getElementById('nombre').value.trim();
+registroForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const nombre = document.getElementById('nombre').value.trim();
   const email = document.getElementById('email').value.trim();
   const contraseña = document.getElementById('contraseña').value.trim();
   if (!nombre || !email || !contraseña) {
@@ -43,6 +40,9 @@ registro document.getElementById('nombre').value.trim();
       const data = await response.text();
       mostrarMensaje(data || 'Registro exitoso.');
       registroForm.reset();
+      setTimeout(() => {
+        window.location.href = URL_REDIRECCION_REGISTRO;
+      }, 1500);
     }
   } catch (err) {
     mostrarMensaje('Error de conexión. Intenta más tarde.', false);
@@ -51,7 +51,6 @@ registro document.getElementById('nombre').value.trim();
   btn.textContent = 'Registrarse';
 });
 
-// LOGIN
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = document.getElementById('email-login').value.trim();
@@ -76,8 +75,9 @@ loginForm.addEventListener('submit', async (e) => {
       const data = await response.json();
       if (data.exito) {
         mostrarMensaje(data.mensaje || 'Login exitoso.');
-        // Redirige si lo deseas:
-        // window.location.href = "/panel"; 
+        setTimeout(() => {
+          window.location.href = URL_REDIRECCION_LOGIN;
+        }, 1200);
       } else {
         mostrarMensaje(data.mensaje || 'Credenciales incorrectas.', false);
       }
