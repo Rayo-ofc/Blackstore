@@ -79,6 +79,16 @@
     form button:hover {
       background: #b71c1c;
     }
+    #mensaje {
+      margin: 10px 0 15px 0;
+      color: #fff;
+      text-align: center;
+      background: #222;
+      border-radius: 7px;
+      padding: 8px 19px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      min-height: 20px;
+    }
     @media (max-width: 500px) {
       .tienda-img {
         width: 90vw;
@@ -94,6 +104,7 @@
 <body>
   <img src="https://files.catbox.moe/x8cgjj.jpg" alt="Blackstore Tienda" class="tienda-img">
   <div class="container">
+    <div id="mensaje"></div>
     <form id="registro-form">
       <h2>Registro</h2>
       <input type="text" id="nombre" placeholder="Nombre" required>
@@ -108,6 +119,6 @@
       <button type="submit">Iniciar sesión</button>
     </form>
   </div>
-  <!-- <script src="script.js"></script> -->
+  <script src="script.js"></script>
 </body>
 </html>
