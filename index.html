@@ -3,29 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Registro - BlackStore</title>
+  <title>BlackStore - Registro e Inicio de Sesión</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #007bff;
-      color: white;
+      background-color: #fff;
+      color: #222;
       text-align: center;
       padding: 50px;
     }
     form {
-      background-color: rgba(255,255,255,0.1);
+      background-color: rgba(0,0,0,0.03);
       padding: 30px;
       border-radius: 10px;
       max-width: 400px;
       margin: auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
     }
     input {
       display: block;
       width: 100%;
       padding: 10px;
       margin: 10px 0;
-      border: none;
+      border: 1px solid #ccc;
+      background: #fafafa;
       border-radius: 5px;
+      color: #222;
     }
     button {
       background-color: #ffc107;
@@ -35,37 +38,73 @@
       border-radius: 5px;
       font-weight: bold;
       cursor: pointer;
+      margin-bottom: 8px;
     }
+    .switch-link {
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 8px;
+      display: inline-block;
+    }
+    #mensaje { margin: 16px 0 0 0; min-height: 24px; font-weight: bold; }
+    .footer { margin-top: 50px; color: #888; font-size: 15px;}
   </style>
+  <!-- EmailJS Script -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    emailjs.init("0NNCkLcAOn4ehe139");
+  </script>
 </head>
 <body>
 
-  <h1>Crear cuenta en BlackStore</h1>
+  <h1 id="titulo">Crear cuenta en BlackStore</h1>
 
-  <form onsubmit="registrar(event)">
+  <!-- Formulario de Registro -->
+  <form id="form-registro" onsubmit="registrar(event)">
     <input type="text" id="nombre" placeholder="Nombre completo" required />
     <input type="email" id="email" placeholder="Correo electrónico" required />
     <input type="text" id="usuario" placeholder="Nombre de usuario" required />
     <input type="password" id="contra" placeholder="Contraseña" required />
     <button type="submit">Registrarse</button>
+    <span class="switch-link" onclick="mostrarLogin()">¿Ya tienes cuenta? Inicia sesión</span>
+  </form>
+
+  <!-- Formulario de Login -->
+  <form id="form-login" style="display:none" onsubmit="login(event)">
+    <input type="text" id="login-usuario" placeholder="Usuario o email" required />
+    <input type="password" id="login-contra" placeholder="Contraseña" required />
+    <button type="submit">Iniciar sesión</button>
+    <span class="switch-link" onclick="mostrarRegistro()">¿No tienes cuenta? Regístrate</span>
   </form>
 
   <p id="mensaje"></p>
 
-  <!-- EmailJS Script -->
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    // Inicializar EmailJS
-    emailjs.init("0NNCkLcAOn4ehe139");
-  </script>
+  <div class="footer">
+    Gracias por preferir Blackstore
+  </div>
 
   <script>
+    function mostrarLogin() {
+      document.getElementById("form-registro").style.display = "none";
+      document.getElementById("form-login").style.display = "block";
+      document.getElementById("titulo").textContent = "Iniciar sesión en BlackStore";
+      document.getElementById("mensaje").textContent = "";
+    }
+    function mostrarRegistro() {
+      document.getElementById("form-registro").style.display = "block";
+      document.getElementById("form-login").style.display = "none";
+      document.getElementById("titulo").textContent = "Crear cuenta en BlackStore";
+      document.getElementById("mensaje").textContent = "";
+    }
+
     function registrar(event) {
       event.preventDefault();
 
-      const nombre = document.getElementById("nombre").value;
-      const email = document.getElementById("email").value;
-      const usuario = document.getElementById("usuario").value;
+      const nombre = document.getElementById("nombre").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const usuario = document.getElementById("usuario").value.trim();
       const contra = document.getElementById("contra").value;
 
       let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
@@ -97,10 +136,33 @@
       document.getElementById("mensaje").textContent = "✅ Registro exitoso. Redirigiendo...";
 
       setTimeout(() => {
-        window.location.href = "dashboard.html"; // Redirige a tu dashboard
+        window.location.href = "dashboard.html";
       }, 2000);
+    }
+
+    function login(event) {
+      event.preventDefault();
+
+      const usuarioInput = document.getElementById("login-usuario").value.trim();
+      const contraInput = document.getElementById("login-contra").value;
+
+      let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+
+      const user = usuarios.find(
+        u => (u.usuario === usuarioInput || u.email === usuarioInput) && u.contra === contraInput
+      );
+
+      if (user) {
+        localStorage.setItem("usuarioLogueado", user.usuario);
+        document.getElementById("mensaje").textContent = "✅ Inicio de sesión exitoso. Redirigiendo...";
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 1500);
+      } else {
+        document.getElementById("mensaje").textContent = "❌ Usuario/Email o contraseña incorrectos.";
+      }
     }
   </script>
 
 </body>
-</html>
+</html
