@@ -1,79 +1,106 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro - BlackStore</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .login-container {
-      background-color: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 350px;
-    }
-    h2 {
+      background-color: #007bff;
+      color: white;
       text-align: center;
+      padding: 50px;
     }
-    input, button {
+    form {
+      background-color: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+    }
+    input {
+      display: block;
       width: 100%;
       padding: 10px;
       margin: 10px 0;
+      border: none;
+      border-radius: 5px;
     }
-    .message {
-      text-align: center;
-      color: red;
-      margin-top: 10px;
-    }
-    a {
-      display: block;
-      text-align: center;
-      margin-top: 10px;
+    button {
+      background-color: #ffc107;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Iniciar Sesión</h2>
-    <form onsubmit="return login(event)">
-      <input type="text" id="login-usuario" placeholder="Nombre de usuario" required>
-      <input type="password" id="login-contra" placeholder="Contraseña" required>
-      <input type="submit" value="Entrar">
-    </form>
-    <div class="message" id="login-mensaje"></div>
-    <a href="registro.html">¿No tienes cuenta? Regístrate aquí</a>
-  </div>
+
+  <h1>Crear cuenta en BlackStore</h1>
+
+  <form onsubmit="registrar(event)">
+    <input type="text" id="nombre" placeholder="Nombre completo" required />
+    <input type="email" id="email" placeholder="Correo electrónico" required />
+    <input type="text" id="usuario" placeholder="Nombre de usuario" required />
+    <input type="password" id="contra" placeholder="Contraseña" required />
+    <button type="submit">Registrarse</button>
+  </form>
+
+  <p id="mensaje"></p>
+
+  <!-- EmailJS Script -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    // Inicializar EmailJS
+    emailjs.init("0NNCkLcAOn4ehe139");
+  </script>
 
   <script>
-    function login(event) {
+    function registrar(event) {
       event.preventDefault();
-      const usuario = document.getElementById("login-usuario").value;
-      const contra = document.getElementById("login-contra").value;
-      const mensaje = document.getElementById("login-mensaje");
 
-      const usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+      const nombre = document.getElementById("nombre").value;
+      const email = document.getElementById("email").value;
+      const usuario = document.getElementById("usuario").value;
+      const contra = document.getElementById("contra").value;
 
-      const usuarioValido = usuarios.find(u => u.usuario === usuario && u.contra === contra);
+      let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
 
-      if (usuarioValido) {
-        localStorage.setItem("usuarioLogueado", usuario);
-        mensaje.style.color = "green";
-        mensaje.textContent = "¡Login exitoso!";
-        setTimeout(() => {
-          window.location.href = "dashboard.html";
-        }, 1000);
-      } else {
-        mensaje.style.color = "red";
-        mensaje.textContent = "Usuario o contraseña incorrectos.";
+      const existente = usuarios.find(
+        u => u.usuario === usuario || u.email === email
+      );
+
+      if (existente) {
+        document.getElementById("mensaje").textContent = "❌ Usuario o email ya registrado.";
+        return;
       }
+
+      const nuevoUsuario = { nombre, email, usuario, contra };
+      usuarios.push(nuevoUsuario);
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+      localStorage.setItem("usuarioLogueado", usuario);
+
+      // Enviar correo de bienvenida con EmailJS
+      emailjs.send("service_q6dwnqp", "template_iy51ben", {
+        to_name: nombre,
+        to_email: email
+      }).then(() => {
+        console.log("📧 Correo de bienvenida enviado.");
+      }).catch((error) => {
+        console.error("Error al enviar correo:", error);
+      });
+
+      document.getElementById("mensaje").textContent = "✅ Registro exitoso. Redirigiendo...";
+
+      setTimeout(() => {
+        window.location.href = "dashboard.html"; // Redirige a tu dashboard
+      }, 2000);
     }
   </script>
+
 </body>
 </html>
