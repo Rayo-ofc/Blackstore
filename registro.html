@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eaeaea;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .register-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .message {
+      text-align: center;
+      color: red;
+    }
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Crear Cuenta</h2>
+    <form onsubmit="return registrar(event)">
+      <input type="text" id="nombre" placeholder="Nombre completo" required>
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="text" id="usuario" placeholder="Nombre de usuario" required>
+      <input type="password" id="contra" placeholder="Contraseña" required>
+      <input type="submit" value="Registrarse">
+    </form>
+    <div class="message" id="registro-mensaje"></div>
+    <a href="index.html">Volver al login</a>
+  </div>
+
+  <script>
+    function registrar(event) {
+      event.preventDefault();
+      const nombre = document.getElementById("nombre").value;
+      const email = document.getElementById("email").value;
+      const usuario = document.getElementById("usuario").value;
+      const contra = document.getElementById("contra").value;
+      const mensaje = document.getElementById("registro-mensaje");
+
+      let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+
+      const existe = usuarios.find(u => u.usuario === usuario || u.email === email);
+
+      if (existe) {
+        mensaje.style.color = "red";
+        mensaje.textContent = "El usuario o correo ya están registrados.";
+      } else {
+        usuarios.push({ nombre, email, usuario, contra });
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        mensaje.style.color = "green";
+        mensaje.textContent = "¡Registrado con éxito!";
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1000);
+      }
+    }
+  </script>
+</body>
+</html>

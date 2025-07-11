@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BlackStore - Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #007bff;
+      margin: 0;
+      padding: 0;
+      color: white;
+    }
+
+    header {
+      background-color: #0056b3;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      width: 320px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      padding-bottom: 10px;
+    }
+
+    .perfil-info p,
+    .counter {
+      margin: 8px 0;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #ffc107;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .logout {
+      background-color: #dc3545;
+    }
+
+    .success {
+      color: #28f28d;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li::before {
+      content: "🛒 ";
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      background-color: #0056b3;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>BlackStore - Panel de Usuario</header>
+
+  <div class="container">
+
+    <!-- PERFIL -->
+    <div class="card">
+      <h2>👤 Mi Perfil</h2>
+      <div class="perfil-info">
+        <p><strong>Nombre:</strong> <span id="nombreVer"></span></p>
+        <p><strong>Email:</strong> <span id="emailVer"></span></p>
+        <p><strong>Usuario:</strong> <span id="usuarioVer"></span></p>
+      </div>
+      <div class="counter">
+        <strong>Usuarios registrados:</strong><br>
+        <span id="contadorUsuarios"></span>
+      </div>
+    </div>
+
+    <!-- MODIFICAR PERFIL -->
+    <div class="card">
+      <h2>⚙️ Modificar Perfil</h2>
+      <form onsubmit="return actualizarPerfil(event)">
+        <label>Nombre completo:</label>
+        <input type="text" id="nombre" required>
+
+        <label>Email:</label>
+        <input type="email" id="email" required>
+
+        <label>Usuario:</label>
+        <input type="text" id="usuario" required>
+
+        <label>Contraseña:</label>
+        <input type="password" id="contra" required>
+
+        <button type="submit">Guardar cambios</button>
+      </form>
+      <button class="logout" onclick="logout()">Cerrar sesión</button>
+      <div class="success" id="mensaje"></div>
+    </div>
+
+    <!-- PRODUCTOS -->
+    <div class="card">
+      <h2>🛍️ Productos</h2>
+      <ul>
+        <li>Recargas telefónicas</li>
+        <li>Cuentas de Netflix</li>
+        <li>Cuentas de Spotify</li>
+        <li>Códigos de regalo</li>
+        <li>Más servicios próximamente...</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer">BlackStore</div>
+
+  <script>
+    const usuarioLogueado = localStorage.getItem("usuarioLogueado");
+    let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+    let usuarioActual = usuarios.find(u => u.usuario === usuarioLogueado);
+
+    if (!usuarioActual) {
+      window.location.href = "index.html";
+    }
+
+    // Mostrar datos en perfil
+    document.getElementById("nombreVer").textContent = usuarioActual.nombre;
+    document.getElementById("emailVer").textContent = usuarioActual.email;
+    document.getElementById("usuarioVer").textContent = usuarioActual.usuario;
+
+    // Mostrar contador
+    document.getElementById("contadorUsuarios").textContent = usuarios.length;
+
+    // Llenar formulario
+    document.getElementById("nombre").value = usuarioActual.nombre;
+    document.getElementById("email").value = usuarioActual.email;
+    document.getElementById("usuario").value = usuarioActual.usuario;
+    document.getElementById("contra").value = usuarioActual.contra;
+
+    function actualizarPerfil(event) {
+      event.preventDefault();
+
+      const nuevoNombre = document.getElementById("nombre").value;
+      const nuevoEmail = document.getElementById("email").value;
+      const nuevoUsuario = document.getElementById("usuario").value;
+      const nuevaContra = document.getElementById("contra").value;
+
+      const duplicado = usuarios.find(u =>
+        (u.usuario === nuevoUsuario || u.email === nuevoEmail) &&
+        u.usuario !== usuarioActual.usuario
+      );
+
+      if (duplicado) {
+        alert("El nombre de usuario o email ya están en uso.");
+        return;
+      }
+
+      usuarioActual.nombre = nuevoNombre;
+      usuarioActual.email = nuevoEmail;
+      usuarioActual.usuario = nuevoUsuario;
+      usuarioActual.contra = nuevaContra;
+
+      usuarios = usuarios.map(u =>
+        u.usuario === usuarioLogueado ? usuarioActual : u
+      );
+
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+      localStorage.setItem("usuarioLogueado", nuevoUsuario);
+
+      document.getElementById("mensaje").textContent = "Datos actualizados correctamente ✅";
+
+      // Actualizar perfil mostrado
+      document.getElementById("nombreVer").textContent = nuevoNombre;
+      document.getElementById("emailVer").textContent = nuevoEmail;
+      document.getElementById("usuarioVer").textContent = nuevoUsuario;
+    }
+
+    function logout() {
+      localStorage.removeItem("usuarioLogueado");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
